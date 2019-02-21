@@ -16,7 +16,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello from service A %s\n", name)
 
 	fmt.Fprintf(w, "Calling Service B\n")
-	req, err := http.NewRequest("GET", "http://servicea:8786/service_b", nil)
+	req, err := http.NewRequest("GET", "http://localhost/service_b", nil)
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
@@ -45,7 +45,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 
 	fmt.Fprintf(w, "Calling Service C\n")
-	req, err = http.NewRequest("GET", "http://servicea:8786/service_c", nil)
+	req, err = http.NewRequest("GET", "http://localhost/service_c", nil)
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
@@ -76,5 +76,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/service_a", handler)
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

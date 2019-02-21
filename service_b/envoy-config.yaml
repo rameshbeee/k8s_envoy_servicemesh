@@ -11,7 +11,7 @@ static_resources:
       address:
         socket_address:
           address: "0.0.0.0"
-          port_value: 8789
+          port_value: 80
       filter_chains:
         -
           filters:
@@ -47,4 +47,4 @@ static_resources:
           -
             socket_address:
               address: "serviceb"
-              port_value: 8082
+              port_value: 8080

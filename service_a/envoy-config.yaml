@@ -12,7 +12,7 @@ static_resources:
       address:
         socket_address:
           address: "0.0.0.0"
-          port_value: 8786
+          port_value: 80
       filter_chains:
         -
           filters:
@@ -57,7 +57,7 @@ static_resources:
           -
             socket_address:
               address: "servicea"
-              port_value: 8081
+              port_value: 8080
       -
         name: "service_b"
         connect_timeout: "0.25s"
@@ -67,7 +67,7 @@ static_resources:
           -
             socket_address:
               address: "serviceb"
-              port_value: 8789
+              port_value: 80
 
       -
         name: "service_c"
@@ -78,4 +78,4 @@ static_resources:
           -
             socket_address:
               address: "servicec"
-              port_value: 8790
+              port_value: 80
