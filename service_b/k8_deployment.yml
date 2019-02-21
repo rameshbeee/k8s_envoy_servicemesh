@@ -6,8 +6,8 @@ spec:
   clusterIP: None
   ports:
   - name: envoy-web
-    port: 8789
-    targetPort: 8789
+    port: 80
+    targetPort: 80
   selector:
     app: serviceb
 ---
@@ -35,7 +35,7 @@ spec:
           - containerPort: 9901
             protocol: TCP
             name: envoy-admin
-          - containerPort: 8789
+          - containerPort: 80
             protocol: TCP
             name: envoy-web
         volumeMounts:
