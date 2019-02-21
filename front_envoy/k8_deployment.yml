@@ -1,0 +1,46 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - name: envoy-web
+    port: 80
+    targetPort: 80
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: envoy
+        image: envoyproxy/envoy:v1.7.0
+        ports:
+          - containerPort: 9901
+            protocol: TCP
+            name: envoy-admin
+          - containerPort: 80
+            protocol: TCP
+            name: envoy-web
+        volumeMounts:
+          - name: envoy-config-volume
+            mountPath: /etc/envoy-config/
+        command: ["/usr/local/bin/envoy"]
+        args: ["-c", "/etc/envoy-config/envoy-config.yaml", "--v2-config-only", "-l", "info","--service-cluster","frontend","--service-node","frontend", "--log-format", "[METADATA][%Y-%m-%d %T.%e][%t][%l][%n] %v"]
+      volumes:
+        - name: envoy-config-volume
+          configMap:
+            name: frontend-config
+            items:
+              - key: envoy-config
+                path: envoy-config.yaml
